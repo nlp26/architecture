@@ -1,53 +1,46 @@
-# Modern Architecture Patterns 2026
+# architecture
 
-## AI Agentic Systems & Software Engineering
+Reference catalog of production architecture patterns for AI agents and modern SWE. One notebook, one pattern per cell, runnable mocks. Where a pattern has a full reproduction, the source repo is linked next to it.
 
-A Python notebook reference covering production architecture patterns for building AI agents and modern software systems.
+The notebook is `modern_architecture_patterns_2026.ipynb`. Each cell stands alone and runs without dependencies — you can read top to bottom or jump.
 
-## Patterns Covered
+## Sections
 
-### Agentic Core
-- **ReAct Loop** — Reason, Act, Observe, Repeat
-- **Plan-and-Execute** — Task DAG decomposition with replanning
+1. **Agentic Architecture Patterns** — ReAct, Plan-and-Execute, Deep Agents Harness
+2. **Tool-Use & Function Calling** — Tool Registry, MCP Server/Client, Code-Execution with MCP
+3. **Memory & State Management** — Layered Memory, Environment-Experience Memory
+4. **Multi-Agent Orchestration** — Supervisor, Pipeline, Swarm, Quality-Gated Granularity
+5. **Retrieval-Augmented Generation** — Agentic RAG, Adaptive RAG (routed), Process-Supervised RAG
+6. **Evaluation & Observability** — Tracing, LLM-as-Judge, Agent-as-a-Judge, Distilled Judge
+7. **Modern SWE Patterns** — Structured Output, Circuit Breaker, Event Bus
+8. **Deployment & Infrastructure** — Model Routing, Guardrails, Cost Tracking, Stateless MCP + OAuth 2.1
+9. **Anti-Patterns** — failure modes seen repeatedly in 2026 agent code
+10. **Decision Guide** — picking the smallest pattern that solves the problem
 
-### Tool Use
-- **Tool Registry** — Schema-validated definitions, sandboxed execution
+## Runnable companion code
 
-### Memory
-- **Layered Memory** — Short-term (conversation), working (scratchpad), long-term (vector store)
+Patterns in this notebook are conceptual mocks. Working implementations of the agentic ones live in separate repos:
 
-### Multi-Agent Orchestration
-- **Supervisor/Router** — Central LLM routes to specialized agents
-- **Pipeline** — Sequential stages with quality gates
-- **Swarm/Handoff** — Decentralized agents with peer-to-peer handoffs
+| Pattern | Repo |
+|---|---|
+| 1C Deep Agents Harness | [nlp26/langchain-deepagents](https://github.com/nlp26/langchain-deepagents) — deepagents 0.6.2 + MCP + FastAPI |
+| 2B / 2C MCP Server + Code-Execution | [nlp26/langchain-deepagents](https://github.com/nlp26/langchain-deepagents) — FastMCP child process over stdio |
+| 4D Quality-Gated Granularity | [nlp26/agentic-papers/agent_capsules](https://github.com/nlp26/agentic-papers/tree/main/agent_capsules) — −38.7% tokens vs baseline (mock) |
+| 5C Process-Supervised RAG | [nlp26/agentic-papers/rag_gym](https://github.com/nlp26/agentic-papers/tree/main/rag_gym) — per-step scoring, Re²Search |
+| 6 / 6B Judge | [nlp26/agentic-papers/agent_as_judge](https://github.com/nlp26/agentic-papers/tree/main/agent_as_judge) — rubric + CoT + calibration |
 
-### Retrieval
-- **Agentic RAG** — Query rewriting, retrieval, reranking, citation-grounded generation
-
-### Observability
-- **Tracing** — Nested spans for agent runs
-- **LLM-as-Judge** — Automated evaluation with per-criterion scoring
-- **Cost Tracking** — Token usage and budget enforcement
-
-### SWE Patterns
-- **Structured Output** — Pydantic/dataclass schemas for LLM responses
-- **Circuit Breaker** — Resilience for LLM API failures
-- **Event Bus** — Pub/sub decoupling between components
-
-### Deployment
-- **Model Routing** — Tiered model selection by task complexity
-- **Guardrails** — Input/output/tool safety layer with PII redaction
-- **Health & Cost** — Budget limits and usage monitoring
-
-## Usage
+## Run
 
 ```bash
-pip install jupyter
 jupyter notebook modern_architecture_patterns_2026.ipynb
 ```
 
-All cells are runnable with zero external dependencies (production substitutions noted in comments).
+Or open in any IDE that renders `.ipynb`. No `pip install` required — every cell uses stdlib only and runs end-to-end.
 
-## Stack
+## What changed in this revision
 
-Python 3.12+ / dataclasses / standard library only (notebook is self-contained).
+The catalog evolved against May 2026 sources. New: Deep Agents Harness (1C), MCP Server/Client (2B), Code-Execution with MCP (2C), Environment-Experience Memory (3B), Quality-Gated Granularity (4D), Adaptive RAG (5B), Process-Supervised RAG (5C), Agent-as-a-Judge (6B), Distilled Judge (6C), Stateless HTTP MCP + OAuth 2.1 (8D), plus Anti-Patterns and a Decision Guide.
+
+## License
+
+Apache-2.0
